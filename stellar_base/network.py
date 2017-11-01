@@ -2,7 +2,9 @@
 from .utils import xdr_hash
 
 NETWORKS = {'PUBLIC': 'Public Global Stellar Network ; September 2015',
-            'TESTNET': 'Test SDF Network ; September 2015'}
+            'TESTNET': 'Test SDF Network ; September 2015',
+            'BOS_TOKENNET': "BOS Token Network ; October 2017"
+            }
 
 
 class Network(object):
