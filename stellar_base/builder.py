@@ -85,7 +85,7 @@ class Builder(object):
         op = ChangeTrust(opts)
         self.append_op(op)
 
-    def append_payment_op(self, destination, amount, asset_type='XLM',
+    def append_payment_op(self, destination, amount, asset_type='BOS',
                           asset_issuer=None, source=None):
         asset = Asset(code=asset_type, issuer=asset_issuer)
         opts = {
@@ -239,7 +239,7 @@ class Builder(object):
     def add_time_bounds(self, time_bounds):
         self.time_bounds.append(time_bounds)
 
-    def federation_payment(self, fed_address, amount, asset_type='XLM',
+    def federation_payment(self, fed_address, amount, asset_type='BOS',
                            asset_issuer=None, source=None):
         fed_info = federation(fed_address, 'name')
         if not fed_info:

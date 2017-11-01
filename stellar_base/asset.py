@@ -10,7 +10,7 @@ class Asset(object):
         if len(code) > 12:
             raise XdrLengthError("Asset code must be 12 characters at max.")
 
-        if str(code).lower() != 'xlm' and issuer is None:
+        if str(code).lower() != 'bos' and issuer is None:
             raise Exception("Issuer cannot be null")
 
         self.code = code
@@ -30,7 +30,7 @@ class Asset(object):
 
     @staticmethod
     def native():
-        return Asset("XLM")
+        return Asset("BOS")
 
     def is_native(self):
         return True if self.issuer is None else False
