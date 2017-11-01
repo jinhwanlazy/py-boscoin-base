@@ -5,7 +5,7 @@ from .memo import *
 from .operation import *
 from .utils import decode_check
 
-FEE = 100
+FEE = 10000
 
 
 class Transaction(object):
