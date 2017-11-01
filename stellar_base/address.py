@@ -5,7 +5,7 @@ import requests
 from .horizon import Horizon
 from .keypair import Keypair
 from .utils import AccountNotExistError, NotValidParamError
-from .horizon import HORIZON_LIVE, HORIZON_TEST
+from .horizon import HORIZON_LIVE, HORIZON_TEST, HORIZON_BOS_TOKENNET
 
 
 class Address(object):
@@ -22,14 +22,17 @@ class Address(object):
             self.address = address
         self.secret = secret
 
-        if network.upper() != 'PUBLIC':
-            self.network = 'TESTNET'
-        else:
-            self.network = 'PUBLIC'
+        network = network.upper()
+        if network not in ['PUBLIC', 'BOS_TOKENNET']:
+            network = 'TESTNET'
+        self.network = network
+
         if horizon:
             self.horizon = Horizon(horizon)
-        elif network.upper() == 'PUBLIC':
+        elif network == 'PUBLIC':
             self.horizon = Horizon(HORIZON_LIVE)
+        elif network == 'BOS_TOKENNET':
+            self.horizon = Horizon(HORIZON_BOS_TOKENNET)
         else:
             self.horizon = Horizon(HORIZON_TEST)
 

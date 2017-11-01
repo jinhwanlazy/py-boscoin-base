@@ -17,6 +17,7 @@ except ImportError:
 
 HORIZON_LIVE = "https://horizon.stellar.org"
 HORIZON_TEST = "https://horizon-testnet.stellar.org"
+HORIZON_BOS_TOKENNET = "https://horizon-tokennet.dev.blockchainos.org"
 
 
 def query(url, params=None, sse=False):
@@ -159,3 +160,7 @@ def horizon_testnet():
 
 def horizon_livenet():
     return Horizon(HORIZON_LIVE)
+
+
+def horizon_bos_tokennet():
+    return Horizon(HORIZON_BOS_TOKENNET)

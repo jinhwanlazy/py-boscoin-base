@@ -32,16 +32,20 @@ class Builder(object):
             self.address = address
             self.key_pair = None
 
-        if network != 'PUBLIC':
-            self.network = 'TESTNET'
-        else:
-            self.network = 'PUBLIC'
+        network = network.upper()
+        if network not in ['PUBLIC', 'BOS_TOKENNET']:
+            network = 'TESTNET'
+        self.network = network
+
         if horizon:
             self.horizon = Horizon(horizon)
-        elif self.network == 'PUBLIC':
+        elif network == 'PUBLIC':
             self.horizon = Horizon(HORIZON_LIVE)
+        elif network == 'BOS_TOKENNET':
+            self.horizon = Horizon(HORIZON_BOS_TOKENNET)
         else:
             self.horizon = Horizon(HORIZON_TEST)
+
         if sequence:
             self.sequence = sequence
         elif self.address:
@@ -96,7 +100,7 @@ class Builder(object):
     def append_path_payment_op(self, destination, send_code, send_issuer, send_max,
                                dest_code, dest_issuer, dest_amount, path, source=None):
         # path: a list of asset tuple which contains code and issuer, [(code,issuer),(code,issuer)]
-        # for native asset you can delivery ('xlm','')        
+        # for native asset you can delivery ('xlm','')
         send_asset = Asset(send_code, send_issuer)
         dest_asset = Asset(dest_code, dest_issuer)
 
@@ -152,7 +156,7 @@ class Builder(object):
         self.append_set_options_op(signer_address=hashx,signer_type='hashX',signer_weight=signer_weight,source=source)
 
     def append_pre_auth_tx_signer(self, pre_auth_tx, signer_weight, source=None):
-        self.append_set_options_op(signer_address=pre_auth_tx, signer_type='preAuthTx', 
+        self.append_set_options_op(signer_address=pre_auth_tx, signer_type='preAuthTx',
                                    signer_weight=signer_weight, source=source)
 
 
@@ -308,7 +312,7 @@ class Builder(object):
             raise
 
     def sign_preimage(self, preimage):
-        ''' preimage must be a unicode string 
+        ''' preimage must be a unicode string
         '''
         if self.te is None :
             self.gen_te()
