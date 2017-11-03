@@ -18,9 +18,9 @@ setup(
     include_package_data=True,
     packages=find_packages(),
     classifiers=[
-        'Development Status :: 0 - Alpha/unstable',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'Natural Language :: Chinese',
+        'Natural Language :: English',
         'License :: OSI Approved :: Apache License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
