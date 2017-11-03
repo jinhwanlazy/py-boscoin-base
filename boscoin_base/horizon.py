@@ -15,9 +15,9 @@ except ImportError:
     # Python 2
     from urllib import urlencode
 
-HORIZON_LIVE = "https://horizon.stellar.org"
+HORIZON_LIVE = "https://horizon-tokennet.dev.blockchainos.org"
 HORIZON_TEST = "https://horizon-testnet.stellar.org"
-HORIZON_BOS_TOKENNET = "https://horizon-tokennet.dev.blockchainos.org"
+HORIZON_STELLAR = "https://horizon.stellar.org"
 
 
 def query(url, params=None, sse=False):
@@ -162,5 +162,5 @@ def horizon_livenet():
     return Horizon(HORIZON_LIVE)
 
 
-def horizon_bos_tokennet():
-    return Horizon(HORIZON_BOS_TOKENNET)
+def horizon_stellar():
+    return Horizon(HORIZON_STELLAR)

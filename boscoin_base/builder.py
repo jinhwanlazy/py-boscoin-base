@@ -33,7 +33,7 @@ class Builder(object):
             self.key_pair = None
 
         network = network.upper()
-        if network not in ['PUBLIC', 'BOS_TOKENNET']:
+        if network not in ['PUBLIC', 'STELLAR']:
             network = 'TESTNET'
         self.network = network
 
@@ -41,8 +41,8 @@ class Builder(object):
             self.horizon = Horizon(horizon)
         elif network == 'PUBLIC':
             self.horizon = Horizon(HORIZON_LIVE)
-        elif network == 'BOS_TOKENNET':
-            self.horizon = Horizon(HORIZON_BOS_TOKENNET)
+        elif network == 'STELLAR':
+            self.horizon = Horizon(HORIZON_STELLAR)
         else:
             self.horizon = Horizon(HORIZON_TEST)
 
