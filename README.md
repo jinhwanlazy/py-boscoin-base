@@ -1,11 +1,18 @@
 [![Build Status](https://travis-ci.org/StellarCN/py-stellar-base.svg)](https://travis-ci.org/StellarCN/py-stellar-base)
 
+# Note
+Python libraries that allow you to interface with the Boscoin horizon interface.
+Boscoin-base library consists of classes to read, write, hash, and sign the xdr structures that are used in boscoin-core.
+Currently testnet is connected to that of stellar, but it will be fixed once
+Boscoin starts to run thier own.
+
+
 # Installation
-    `pip install stellar-base`
+    `pip install boscoin-base`
 # Quick Start
 
 ## 1. Create a Stellar key pair
-There are 2 methods for generating a key pair in `py-stellar-base`.
+There are 2 methods for generating a key pair in `py-boscoin-base`.
 
 ### 1.1 Random generation
 ```python
@@ -52,7 +59,8 @@ If you want to play in the Stellar test network, you can ask our Friendbot to cr
     r=requests.get('https://horizon-testnet.stellar.org/friendbot?addr='+publickey)
 ```
 ### 2.2 Livenet
-On the other hand, if you would like to create an account in the livenet, you should buy some Stellar Lumens from an exchange. When you withdraw the Lumens into your new account, the exchange will automatically create the account for you.
+On the other hand, if you would like to create an account in the livenet, you should buy some BOS from an exchange.
+When you withdraw the BOS into your new account, the exchange will automatically create the account for you.
 However, if you want to create an account from another account of your own, you may run the following code:
 ```python
     from boscoin_base.keypair import Keypair
@@ -66,10 +74,10 @@ However, if you want to create an account from another account of your own, you 
     
     oldAccountSeed = "SCVLSUGYEAUC4MVWJORB63JBMY2CEX6ATTJ5MXTENGD3IELUQF4F6HUB"
     newAccountAddress = "XXX"
-    amount = '25' # Any amount higher than 20
+    amount = '25' # Any amount higher than 0.1
     kp = Keypair.from_seed(oldAccountSeed)
     horizon = horizon_livenet()
-    asset = Asset("XLM")
+    asset = Asset("BOS")
     # create op 
     op = CreateAccount({
         'destination': newAccountAddress,
@@ -86,7 +94,7 @@ However, if you want to create an account from another account of your own, you 
             'sequence': sequence,
             #'timeBounds': [],
             'memo': msg,
-            #'fee': 100,
+            #'fee': 10000,
             'operations': [
                 op,
             ],
@@ -154,7 +162,7 @@ We can build a transaction with a wrapper or from scratch.
 How about sending Bob a payment?
 ```python
     bob_address = 'XXX'
-    builder.append_payment_op(bob_address,'100','XLM')
+    builder.append_payment_op(bob_address,'100','BOS')
 ```
 Or if you want to pay him with CNY:
 ```python
@@ -220,7 +228,7 @@ Sometimes, we need to deal with multi-signature transactions. Especially when yo
             'sequence': sequence,
             # 'timeBounds': [],
             'memo': msg,
-            # 'fee': 100,
+            # 'fee': 10000,
             'operations': [
                 op,
             ],
