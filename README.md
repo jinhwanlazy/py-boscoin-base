@@ -9,14 +9,14 @@ There are 2 methods for generating a key pair in `py-stellar-base`.
 
 ### 1.1 Random generation
 ```python
-    from stellar_base.keypair import Keypair
+    from boscoin_base.keypair import Keypair
     kp = Keypair.random()
 ```    
 
 ### 1.2 Deterministic generation
 Or we may generate from a Unicode mnemonic string:
 ```python
-    from stellar_base.utils import StellarMnemonic
+    from boscoin_base.utils import StellarMnemonic
     sm = StellarMnemonic("chinese") # here we use chinese, but default language is 'english'
     m = sm.generate() 
     # or m = u'域 监 惜 国 期 碱 珍 继 造 监 剥 电' (must add u'' before the string if using Python 2)
@@ -32,7 +32,7 @@ The seed is your secret. For safety, please keep it local and never send it thro
 
 Whenever we forget/lose your public key, we can regenerate the key pair from the seed:
 ```python
-    from stellar_base.keypair import Keypair
+    from boscoin_base.keypair import Keypair
     kp = Keypair.from_seed(seed)
 ```   
 This is my favorite key pair in TESTNET, let's use them in the following steps.
@@ -55,14 +55,14 @@ If you want to play in the Stellar test network, you can ask our Friendbot to cr
 On the other hand, if you would like to create an account in the livenet, you should buy some Stellar Lumens from an exchange. When you withdraw the Lumens into your new account, the exchange will automatically create the account for you.
 However, if you want to create an account from another account of your own, you may run the following code:
 ```python
-    from stellar_base.keypair import Keypair
-    from stellar_base.asset import Asset
-    from stellar_base.operation import Payment
-    from stellar_base.operation import CreateAccount
-    from stellar_base.transaction import Transaction
-    from stellar_base.transaction_envelope import TransactionEnvelope as Te
-    from stellar_base.memo import TextMemo
-    from stellar_base.horizon import horizon_testnet, horizon_livenet
+    from boscoin_base.keypair import Keypair
+    from boscoin_base.asset import Asset
+    from boscoin_base.operation import Payment
+    from boscoin_base.operation import CreateAccount
+    from boscoin_base.transaction import Transaction
+    from boscoin_base.transaction_envelope import TransactionEnvelope as Te
+    from boscoin_base.memo import TextMemo
+    from boscoin_base.horizon import horizon_testnet, horizon_livenet
     
     oldAccountSeed = "SCVLSUGYEAUC4MVWJORB63JBMY2CEX6ATTJ5MXTENGD3IELUQF4F6HUB"
     newAccountAddress = "XXX"
@@ -107,7 +107,7 @@ Then, you can check the status of this operation with the response.
 ### 3.1 Basic info
 After creating the account, we may check the basic information of the account.
 ```python
-    from stellar_base.address import Address
+    from boscoin_base.address import Address
     publickey = 'GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG'
     address = Address(address=publickey) # address = Address(address=publickey,network='public') for livenet
     address.get() # get the updated information
@@ -147,7 +147,7 @@ We can build a transaction with a wrapper or from scratch.
 
 ### 4.1 Build with a wrapper
 ```python
-    from stellar_base.builder import Builder
+    from boscoin_base.builder import Builder
     seed = "SCVLSUGYEAUC4MVWJORB63JBMY2CEX6ATTJ5MXTENGD3IELUQF4F6HUB"
     builder = Builder(secret=seed) # builder = Builder(secret=seed, network='public') for LIVENET
 ```
@@ -183,13 +183,13 @@ Sometimes, we need to deal with multi-signature transactions. Especially when yo
 
 ### 4.2 Build from scratch
 ```python   
-    from stellar_base.keypair import Keypair
-    from stellar_base.asset import Asset
-    from stellar_base.operation import Payment
-    from stellar_base.transaction import Transaction
-    from stellar_base.transaction_envelope import TransactionEnvelope as Te
-    from stellar_base.memo import TextMemo
-    from stellar_base.horizon import horizon_testnet, horizon_pubic
+    from boscoin_base.keypair import Keypair
+    from boscoin_base.asset import Asset
+    from boscoin_base.operation import Payment
+    from boscoin_base.transaction import Transaction
+    from boscoin_base.transaction_envelope import TransactionEnvelope as Te
+    from boscoin_base.memo import TextMemo
+    from boscoin_base.horizon import horizon_testnet, horizon_pubic
     
     alice_seed = 'SAZJ3EDATROKTNNN4WZBZPRC34AN5WR43VEHAFKT5D66UEZTKDNKUHOK'
     bob_address = 'GDLP3SP4WP72L4BAJWZUDZ6SAYE4NAWILT5WQDS7RWC4XCUNUQDRB2A4'

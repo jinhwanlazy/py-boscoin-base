@@ -1,10 +1,10 @@
 # coding:utf-8
 
 from nose.tools import raises
-from stellar_base.memo import *
-from stellar_base.operation import *
-from stellar_base.asset import Asset
-from stellar_base.transaction_envelope import TransactionEnvelope as Te
+from boscoin_base.memo import *
+from boscoin_base.operation import *
+from boscoin_base.asset import Asset
+from boscoin_base.transaction_envelope import TransactionEnvelope as Te
 
 
 class TestOp:

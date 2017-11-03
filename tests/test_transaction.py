@@ -1,6 +1,6 @@
 # coding: utf-8
-from stellar_base.memo import *
-from stellar_base.operation import *
+from boscoin_base.memo import *
+from boscoin_base.operation import *
 
 
 class TestTx:
@@ -13,9 +13,9 @@ class TestTx:
         self.amount = 10 * 10 ** 6
 
     def do(self, op):
-        from stellar_base.transaction import Transaction
-        from stellar_base.keypair import Keypair
-        from stellar_base.transaction_envelope import TransactionEnvelope as Te
+        from boscoin_base.transaction import Transaction
+        from boscoin_base.keypair import Keypair
+        from boscoin_base.transaction_envelope import TransactionEnvelope as Te
         tx = Transaction(source=self.source, opts=op)
         tx.add_operation(operation=Inflation({}))
         envelope = Te(tx=tx, opts={"network_id": "TESTNET"})
@@ -63,9 +63,9 @@ class TestMultiOp:
         self.amount = "20"
 
     def make_envelope(self, *args, **kwargs):
-        from stellar_base.transaction import Transaction
-        from stellar_base.keypair import Keypair
-        from stellar_base.transaction_envelope import TransactionEnvelope as Te
+        from boscoin_base.transaction import Transaction
+        from boscoin_base.keypair import Keypair
+        from boscoin_base.transaction_envelope import TransactionEnvelope as Te
         opts = {
             'sequence': self.seq,
             'fee': self.fee * len(args)

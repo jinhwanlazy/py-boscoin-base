@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-# from stellar_base.asset import Asset
+# from boscoin_base.asset import Asset
 from .horizon import HORIZON_LIVE, HORIZON_TEST
 from .horizon import Horizon
 from .keypair import Keypair

@@ -10,13 +10,7 @@ script:
   - ls
   - python -m nose -v
 notifications:
-  email: false
-  irc:
-    channels: "irc.freenode.org#stellar-py"
-    template:
-      - "%{repository}@%{branch}: %{message} (%{build_url})"
-    on_success: change
-    on_failure: change
+  email: "jinhwanlazy@gmail.com"
 branches:
   only:
     - master

@@ -3,9 +3,9 @@ import json
 
 import requests
 
-from stellar_base.builder import Builder, HORIZON_TEST
-from stellar_base.keypair import Keypair
-from stellar_base.utils import SignatureExistError
+from boscoin_base.builder import Builder, HORIZON_TEST
+from boscoin_base.keypair import Keypair
+from boscoin_base.utils import SignatureExistError
 
 
 class TestBuilder(object):

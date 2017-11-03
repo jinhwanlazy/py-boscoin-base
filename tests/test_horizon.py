@@ -1,10 +1,10 @@
 import requests
 import json
-from stellar_base.keypair import Keypair
-from stellar_base.memo import *
-from stellar_base.operation import *
+from boscoin_base.keypair import Keypair
+from boscoin_base.memo import *
+from boscoin_base.operation import *
 
-from stellar_base.horizon import Horizon
+from boscoin_base.horizon import Horizon
 horizon = Horizon()
 
 class TestMethods:
@@ -18,9 +18,9 @@ class TestMethods:
         assert 'hash' in json.loads(r.text), "\n" + urlParam + "\n" + r.text
 
     def make_envelope(self, *args, **kwargs):
-        from stellar_base.transaction import Transaction
-        from stellar_base.keypair import Keypair
-        from stellar_base.transaction_envelope import TransactionEnvelope as Te
+        from boscoin_base.transaction import Transaction
+        from boscoin_base.keypair import Keypair
+        from boscoin_base.transaction_envelope import TransactionEnvelope as Te
         opts = {
             'sequence': horizon.account(self.address)['sequence'],
             'fee': self.fee * len(args)

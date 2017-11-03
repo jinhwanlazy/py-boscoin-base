@@ -1,6 +1,6 @@
 from nose.tools import raises
-from stellar_base.asset import Asset
-from stellar_base.stellarxdr import Xdr
+from boscoin_base.asset import Asset
+from boscoin_base.stellarxdr import Xdr
 
 
 class TestAsset:
