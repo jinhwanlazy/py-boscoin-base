@@ -8,11 +8,11 @@ class TestAsset:
         self.source = 'GDJVFDG5OCW5PYWHB64MGTHGFF57DRRJEDUEFDEL2SLNIOONHYJWHA3Z'
 
     def test_native(self):
-        assert 'XLM' == Asset.native().code
+        assert 'BOS' == Asset.native().code
         assert None == Asset.native().issuer
 
     def test_is_native(self):
-        native = Asset('XLM')
+        native = Asset('BOS')
         cny = Asset('CNY', self.source)
         assert native.is_native()
         assert not cny.is_native()

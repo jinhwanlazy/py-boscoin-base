@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # from boscoin_base.asset import Asset
-from .horizon import HORIZON_LIVE, HORIZON_TEST
+from .horizon import HORIZON_LIVE, HORIZON_TEST, HORIZON_STELLAR
 from .horizon import Horizon
 from .keypair import Keypair
 from .memo import *
@@ -32,7 +32,8 @@ class Builder(object):
             self.address = address
             self.key_pair = None
 
-        network = network.upper()
+        if network:
+            network = network.upper()
         if network not in ['PUBLIC', 'STELLAR']:
             network = 'TESTNET'
         self.network = network
@@ -100,7 +101,7 @@ class Builder(object):
     def append_path_payment_op(self, destination, send_code, send_issuer, send_max,
                                dest_code, dest_issuer, dest_amount, path, source=None):
         # path: a list of asset tuple which contains code and issuer, [(code,issuer),(code,issuer)]
-        # for native asset you can delivery ('xlm','')
+        # for native asset you can delivery ('bos','')
         send_asset = Asset(send_code, send_issuer)
         dest_asset = Asset(dest_code, dest_issuer)
 
