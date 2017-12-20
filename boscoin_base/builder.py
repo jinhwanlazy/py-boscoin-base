@@ -263,7 +263,7 @@ class Builder(object):
                 'sequence': self.sequence,
                 'time_Bounds': self.time_bounds,
                 'memo': self.memo,
-                'fee': self.fee if self.fee else 100 * len(self.ops),
+                'fee': self.fee if self.fee else 10000 * len(self.ops),
                 'operations': self.ops,
             },
         )
