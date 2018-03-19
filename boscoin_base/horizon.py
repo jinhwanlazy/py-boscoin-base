@@ -105,8 +105,8 @@ class Horizon(object):
         url = self.horizon + '/order_book/'
         return query(url, params)
 
-    def order_book_trades(self, params=None):
-        url = self.horizon + '/order_book/trades/'
+    def trades(self, params=None):
+        url = self.horizon + '/trades/'
         return query(url, params)
 
     def ledgers(self, params=None, sse=False):
@@ -152,6 +152,10 @@ class Horizon(object):
     def payments(self, params=None, sse=False):
         url = self.horizon + '/payments/'
         return query(url, params, sse)
+
+    def assets(self, params=None):
+        url = self.horizon + '/assets/'
+        return query(url, params)
 
 
 def horizon_testnet():

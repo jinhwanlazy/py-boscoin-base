@@ -1,0 +1,3 @@
+include boscoin_base/wordlist/chinese.txt
+include README.md
+include LICENSE

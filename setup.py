@@ -8,7 +8,7 @@ with codecs.open('README.md', encoding='utf-8') as file:
 
 setup(
     name='boscoin-base',
-    version='0.1.4',
+    version='0.1.5',
     description='boscoin-base in python.',
     long_description=long_description,
     url='http://github.com/jinhwanlazy/py-boscoin-base/',

@@ -8,7 +8,8 @@ Boscoin starts to run thier own.
 
 
 # Installation
-    `pip install boscoin-base`
+`pip install boscoin-base`
+
 # Quick Start
 
 ## 1. Create a Stellar key pair
@@ -21,27 +22,46 @@ kp = Keypair.random()
 ```    
 
 ### 1.2 Deterministic generation
-Or we may generate from a Unicode mnemonic string:
+In this method the key pair is deterministically generated from a mnemonic string, also known as "seed phrase".
+First we generate a Unicode mnemonic string:
 ```python
 from boscoin_base.utils import StellarMnemonic
 sm = StellarMnemonic("chinese") # here we use chinese, but default language is 'english'
 m = sm.generate() 
 # or m = u'域 监 惜 国 期 碱 珍 继 造 监 剥 电' (must add u'' before the string if using Python 2)
+```
+The call `sm.generate()` prints out the generated mnemonic string, which is a phrase made of random words separated by
+spaces. You should either write this phrase down or memorize it. Do not share your mnemonic string with anyone.
+
+Now we use the mnemonic string `m` to generate the key pair:
+```python
 kp = Keypair.deterministic(m, lang='chinese')
 ```
-After the key pair generation, we can get a public key/seed from it:
- ```python
+And we can use the mnemonic string `m` to generate multiple key pairs:
+```python
+kp1 = Keypair.deterministic(m, lang='chinese', index=1)
+kp2 = Keypair.deterministic(m, lang='chinese', index=2)
+```
+After the key pair generation, we can get a public key and a seed from it:
+```python
 publickey = kp.address().decode()
 seed = kp.seed().decode()
-```
+```    
 The public key is also your account address. If someone needs to send you a transaction, you should share with them this key.
 The seed is your secret. For safety, please keep it local and never send it through the Internet.
 
-Whenever we forget/lose your public key, we can regenerate the key pair from the seed:
+Whenever we forget/lose the public key, we can regenerate the key pair from the seed:
 ```python
 from boscoin_base.keypair import Keypair
 kp = Keypair.from_seed(seed)
-```   
+```
+If we forget/lose both the public key and the seed, we can regenerate the key pair from the mnemonic string:
+```python
+from boscoin_base.keypair import Keypair
+seed_phrase = '...' # the word sequence that you wrote down or memorized
+kp = Keypair.deterministic(seed_phrase, lang='chinese')
+```
+
 This is my favorite key pair in TESTNET, let's use them in the following steps.
 ```python
 publickey = 'GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG'
@@ -49,14 +69,14 @@ seed = 'SCVLSUGYEAUC4MVWJORB63JBMY2CEX6ATTJ5MXTENGD3IELUQF4F6HUB'
 ```   
 
 ## 2.Create Account
-After the key pair generation, you have already got the address, but it is not activated until someone transfers at least 20 lumen into it. 
+After the key pair generation, you have already got the address, but it is not activated until someone transfers at least 20 lumen into it.
 
 ### 2.1 Testnet
 If you want to play in the Stellar test network, you can ask our Friendbot to create an account for you as shown below:
 ```python
 import requests
-publickey=kp.address().decode()
-r=requests.get('https://horizon-testnet.stellar.org/friendbot?addr='+publickey)
+publickey = kp.address().decode()
+r = requests.get('https://horizon-testnet.stellar.org/friendbot?addr=' + publickey)
 ```
 ### 2.2 Livenet
 On the other hand, if you would like to create an account in the livenet, you should buy some BOS from an exchange.
@@ -98,7 +118,7 @@ tx = Transaction(
         'operations': [
             op,
         ],
-     },
+    },
 )
 # build envelope
 envelope = Te(tx=tx, opts={"network_id": "PUBLIC"})
@@ -179,7 +199,7 @@ builder.submit()
 ```
 Done.
 
-Sometimes, we need to deal with multi-signature transactions. Especially when you get a xdr string (or transaction envelope xdr) from a friend or partner, which describes a multi-sig transaction. They may need you to sign on it too. 
+Sometimes, we need to deal with multi-signature transactions. Especially when you get a xdr string (or transaction envelope xdr) from a friend or partner, which describes a multi-sig transaction. They may need you to sign on it too.
 ```python
 builder = Builder(secret=seed) # or builder = Builder(secret=secret, network='public') for LIVENET.
 builder.import_from_xdr(xdr_string) # the xdr_string come from your friend
@@ -196,7 +216,7 @@ from boscoin_base.operation import Payment
 from boscoin_base.transaction import Transaction
 from boscoin_base.transaction_envelope import TransactionEnvelope as Te
 from boscoin_base.memo import TextMemo
-from boscoin_base.horizon import horizon_testnet, horizon_pubic
+from boscoin_base.horizon import horizon_testnet, horizon_livenet
 
 alice_seed = 'SAZJ3EDATROKTNNN4WZBZPRC34AN5WR43VEHAFKT5D66UEZTKDNKUHOK'
 bob_address = 'GDLP3SP4WP72L4BAJWZUDZ6SAYE4NAWILT5WQDS7RWC4XCUNUQDRB2A4'
@@ -204,7 +224,7 @@ CNY_ISSUER = 'GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG'
 amount = '100'
 
 Alice = Keypair.from_seed(alice_seed)
-horizon = horizon_testnet()# horizon = horizon_pubic() for LIVENET
+horizon = horizon_testnet() # horizon = horizon_livenet() for LIVENET
 
 asset = Asset('CNY', CNY_ISSUER) 
 # create op 
@@ -218,12 +238,15 @@ op = Payment({
 msg = TextMemo('Buy yourself a beer !')
 
 # get sequence of Alice
-sequence = horizon.account(Alice.address()).get('sequence') 
+# Python 2
+sequence = horizon.account(Alice.address()).get('sequence')
+# Python 3
+# sequence = horizon.account(Alice.address().decode('utf-8')).get('sequence')
 
 # construct Tx
 tx = Transaction(
-    source=Alice.address().decode(),
-    opts={
+    source = Alice.address().decode(),
+    opts = {
         'sequence': sequence,
         # 'timeBounds': [],
         'memo': msg,
@@ -234,13 +257,11 @@ tx = Transaction(
     },
 )
 
-
 # build envelope
 envelope = Te(tx=tx, opts={"network_id": "TESTNET"}) # envelope = Te(tx=tx, opts={"network_id": "PUBLIC"}) for LIVENET
 # sign 
 envelope.sign(Alice)
 # submit
 xdr = envelope.xdr()
-response=horizon.submit(xdr)
+response = horizon.submit(xdr)
 ```
-

@@ -10,6 +10,7 @@ class TestAsset:
     def test_native(self):
         assert 'BOS' == Asset.native().code
         assert None == Asset.native().issuer
+        assert 'native' == Asset.native().type
 
     def test_is_native(self):
         native = Asset('BOS')
@@ -31,7 +32,7 @@ class TestAsset:
 
     def test_xdr(self):
         xdr = b'AAAAAUNOWQAAAAAA01KM3XCt1+LHD7jDTOYpe/HGKSDoQoyL1JbUOc0+E2M='
-        cny = Asset('CNY',self.source)
+        cny = Asset('CNY', self.source)
         assert xdr == cny.xdr()
 
     def test_unxdr(self):
