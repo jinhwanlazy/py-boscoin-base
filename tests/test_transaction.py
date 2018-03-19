@@ -26,14 +26,14 @@ class TestTx:
         return envelope_b64
 
     def test_textMemo_ascii(self):
-        result = b'AAAAANNSjN1wrdfixw+4w0zmKXvxxikg6EKMi9SW1DnNPhNjAAAAZAAAAAAAAAACAAAAAAAAAAEAAAAHdGVzdGluZwAAAAABAAAAAAAAAAkAAAAAAAAAAc0+E2MAAABA0nGC1i7CxTIJYNZKgo067Tr6JTCZTIU5Jwa2kpNMR7ayPohKVTaO53kojTn0c+NftXaogRZvz4/9etdOhDhlDQ=='
+        result = b'AAAAANNSjN1wrdfixw+4w0zmKXvxxikg6EKMi9SW1DnNPhNjAAAnEAAAAAAAAAACAAAAAAAAAAEAAAAHdGVzdGluZwAAAAABAAAAAAAAAAkAAAAAAAAAAc0+E2MAAABA/ZAb/9BKSYNYjyeX/bAVNhPkWgnfvHnd5EdLojZYt1hRhQPKyJWiUugfNVEj4Es+j8KYwo0wMCuKdPCdiFm+Cg=='
         assert (result == self.do(op={
             'sequence': self.seq,
             'memo': TextMemo('testing'),
         }))
 
     def test_textMemo_unicode(self):
-        result = b'AAAAANNSjN1wrdfixw+4w0zmKXvxxikg6EKMi9SW1DnNPhNjAAAAZAAAAAAAAAACAAAAAAAAAAEAAAAMdMSTxaF0xKvFhsSjAAAAAQAAAAAAAAAJAAAAAAAAAAHNPhNjAAAAQLW0BjNvpw3FWZwrXHWmno436IrqDQLzPD7wWsVBdrp+VG244GTfSJfUYJwaOiiqEt93G7KTUIc/HLxO8saMeAo='
+        result = b'AAAAANNSjN1wrdfixw+4w0zmKXvxxikg6EKMi9SW1DnNPhNjAAAnEAAAAAAAAAACAAAAAAAAAAEAAAAMdMSTxaF0xKvFhsSjAAAAAQAAAAAAAAAJAAAAAAAAAAHNPhNjAAAAQE4XAwwHpez7494mMg+ge41ZU7YYKkl8pkN+rxV8rjjkXt5EovhoVXUBHMPluBFBNGrjAUTNmOLWnFTvk+MzzQM='
         assert (result == self.do(op={
             'sequence': self.seq,
             'memo': TextMemo('tēštīņģ'),
