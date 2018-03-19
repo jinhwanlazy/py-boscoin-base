@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/StellarCN/py-stellar-base.svg)](https://travis-ci.org/StellarCN/py-stellar-base)
+[![Build Status](https://travis-ci.org/jinhwanlazy/py-boscoin-base.svg)](https://travis-ci.org/jinhwanlazy/py-boscoin-base)
 
 # Note
 Python libraries that allow you to interface with the Boscoin horizon interface.
