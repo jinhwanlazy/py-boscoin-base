@@ -76,7 +76,7 @@ If you want to play in the Stellar test network, you can ask our Friendbot to cr
 ```python
 import requests
 publickey = kp.address().decode()
-r = requests.get('https://horizon-testnet.stellar.org/friendbot?addr=' + publickey)
+r = requests.get('https://friendbot.stellar.org/?addr=' + publickey)
 ```
 ### 2.2 Livenet
 On the other hand, if you would like to create an account in the livenet, you should buy some BOS from an exchange.
